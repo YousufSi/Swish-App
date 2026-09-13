@@ -1,5 +1,7 @@
 Swish - Basketball App
 
+Demo Link: https://swish-app-demo.bolt.host
+
 A modern web application for finding and organizing basketball games near you. Built with React, TypeScript, Tailwind CSS, and Supabase.
 
 Features:
