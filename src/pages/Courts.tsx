@@ -202,7 +202,7 @@ export default function Courts() {
                 
                 <div className="mt-4 space-y-2">
                   <p className="text-sm text-nike-gray-600 dark:text-nike-gray-400">
-                    <span className="font-medium">Address:</span> {court.address}
+                    <span className="font-medium">Address:</span> {court.address}{court.city ? `, ${court.city}` : ''}{court.state ? `, ${court.state}` : ''}{court.zipcode ? ` ${court.zipcode}` : ''}
                   </p>
                   
                   {court.distance && (
