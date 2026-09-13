@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingBasket as Basketball, Mail, Lock, User, Chrome, ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { ShoppingBasket as Basketball, Mail, Lock, User, ArrowLeft } from 'lucide-react';
 import { supabase } from '../lib/supabase/client';
 
 export default function Auth() {
   const [loading, setLoading] = useState(false);
-  const [googleLoading, setGoogleLoading] = useState(false);
   const [resetLoading, setResetLoading] = useState(false);
-  const [user, setUser] = useState(null);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const navigate = useNavigate();
 
@@ -16,7 +14,6 @@ export default function Auth() {
     const checkUser = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
-        setUser(user);
         navigate('/');
       }
     };
@@ -131,50 +128,6 @@ export default function Auth() {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    try {
-      setGoogleLoading(true);
-      console.log('Initiating Google OAuth...');
-      
-      // Check if we have a valid Supabase URL
-      if (!import.meta.env.VITE_SUPABASE_URL) {
-        alert('Authentication service is not configured. Please contact support.');
-        return;
-      }
-      
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: `${window.location.origin}/auth?provider=google`,
-          queryParams: {
-            access_type: 'offline',
-            prompt: 'consent',
-          },
-        }
-      });
-      
-      if (error) {
-        console.error('Error signing in with Google:', error.message);
-        
-        if (error.message.includes('OAuth') || error.message.includes('provider')) {
-          alert('Google sign-in is not available right now. Please use email sign-in instead.');
-        } else if (error.message.includes('popup')) {
-          alert('Please allow popups for this site and try again.');
-        } else if (error.message.includes('network')) {
-          alert('Network error. Please check your connection and try again.');
-        } else {
-          alert('Google sign-in failed. Please try email sign-in instead.');
-        }
-        console.log('Google OAuth error details:', error);
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('An unexpected error occurred. Please try again.');
-    } finally {
-      setGoogleLoading(false);
-    }
-  };
-
   const handleForgotPassword = async (email: string) => {
     try {
       setResetLoading(true);
@@ -223,7 +176,6 @@ export default function Auth() {
     const urlParams = new URLSearchParams(window.location.search);
     const confirmed = urlParams.get('confirmed');
     const reset = urlParams.get('reset');
-    const provider = urlParams.get('provider');
     const error = urlParams.get('error');
     
     if (confirmed === 'true') {
@@ -234,13 +186,6 @@ export default function Auth() {
     
     if (reset === 'true') {
       alert('Please enter your new password.');
-      // Clean up URL
-      window.history.replaceState({}, document.title, '/auth');
-    }
-    
-    if (provider === 'google') {
-      // Handle Google OAuth callback
-      console.log('Google OAuth callback received');
       // Clean up URL
       window.history.replaceState({}, document.title, '/auth');
     }
@@ -287,42 +232,12 @@ export default function Auth() {
         </div>
 
         <div className="mt-8 bg-white dark:bg-nike-gray-800 border border-nike-gray-200 dark:border-nike-gray-700 py-8 px-6 shadow-lg rounded-lg transition-colors duration-300">
-          {/* Google Sign In Button */}
-          <div className="mb-6">
-            <button
-              onClick={handleGoogleSignIn}
-              disabled={googleLoading || loading}
-              className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-nike-gray-300 dark:border-nike-gray-600 rounded-md shadow-sm bg-white dark:bg-nike-gray-700 text-nike-black dark:text-nike-white hover:bg-nike-gray-50 dark:hover:bg-nike-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-nike-red transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {googleLoading ? (
-                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-nike-red"></div>
-              ) : (
-                <Chrome className="h-5 w-5 text-nike-red" />
-              )}
-              <span className="font-medium">
-                {googleLoading ? 'Signing in...' : 'Continue with Google'}
-              </span>
-            </button>
-          </div>
-
-          {/* Divider */}
-          <div className="relative mb-6">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-nike-gray-300 dark:border-nike-gray-600" />
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white dark:bg-nike-gray-800 text-nike-gray-500 dark:text-nike-gray-400 font-medium">
-                Or continue with email
-              </span>
-            </div>
-          </div>
-
           <EmailAuthForm 
             onSignIn={handleEmailSignIn}
             onSignUp={handleEmailSignUp}
             onForgotPassword={() => setShowForgotPassword(true)}
             loading={loading}
-            disabled={googleLoading}
+            disabled={false}
           />
         </div>
 
