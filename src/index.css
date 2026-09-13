@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    @apply bg-white dark:bg-nike-gray-900 text-nike-black dark:text-nike-white min-h-screen font-nike transition-colors duration-300;
+  }
+}
+
+@layer components {
+  .nike-container {
+    @apply w-full max-w-[1440px] mx-auto px-6 md:px-12;
+  }
+
+  .nike-card {
+    @apply bg-white dark:bg-nike-gray-800 border border-nike-gray-200 dark:border-nike-gray-700 rounded-none overflow-hidden transition-all duration-300 hover:shadow-lg;
+  }
+
+  .nike-heading {
+    @apply text-[2.75rem] sm:text-[3.5rem] font-black tracking-tight text-nike-black dark:text-nike-white uppercase leading-none;
+  }
+
+  .nike-subheading {
+    @apply text-2xl sm:text-3xl font-bold tracking-tight text-nike-black dark:text-nike-white uppercase;
+  }
+
+  .nike-button {
+    @apply bg-nike-black dark:bg-nike-white text-white dark:text-nike-black font-bold py-2.5 px-7 rounded-full hover:bg-nike-gray-800 dark:hover:bg-nike-gray-200 transition-colors duration-200 uppercase text-sm tracking-wider;
+  }
+
+  .nike-button-outline {
+    @apply border-2 border-nike-black dark:border-nike-white text-nike-black dark:text-nike-white font-bold py-2 px-6 rounded-full hover:bg-nike-black dark:hover:bg-nike-white hover:text-white dark:hover:text-nike-black transition-colors duration-200 uppercase text-sm tracking-wider;
+  }
+
+  .nike-tag {
+    @apply inline-flex items-center rounded-full bg-nike-gray-100 dark:bg-nike-gray-700 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-nike-black dark:text-nike-white;
+  }
+
+  .nike-nav {
+    @apply fixed bottom-0 w-full bg-white dark:bg-nike-gray-900 border-t border-nike-gray-200 dark:border-nike-gray-700 z-50 transition-colors duration-300;
+  }
+
+  .nike-nav-link {
+    @apply flex flex-col items-center py-3 px-3 text-xs font-bold uppercase tracking-wider text-nike-gray-500 dark:text-nike-gray-400 hover:text-nike-black dark:hover:text-nike-white transition-colors duration-200;
+  }
+
+  .nike-nav-link-active {
+    @apply text-nike-red dark:text-nike-red;
+  }
+
+  .nike-card-hover {
+    @apply hover:border-nike-red hover:shadow-lg transition-all duration-200;
+  }
+
+  .nike-gradient {
+    @apply bg-gradient-to-br from-nike-red to-nike-black;
+  }
+
+  .nike-badge {
+    @apply inline-flex items-center rounded-full bg-nike-red/10 dark:bg-nike-red/20 text-nike-red px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider;
+  }
+
+  .nike-stat-card {
+    @apply bg-white dark:bg-nike-gray-800 border border-nike-gray-200 dark:border-nike-gray-700 rounded-lg p-6 hover:border-nike-red transition-colors duration-200;
+  }
+
+  .nike-stat-value {
+    @apply text-3xl font-black tracking-tight text-nike-black dark:text-nike-white;
+  }
+
+  .nike-stat-label {
+    @apply text-xs font-bold uppercase tracking-wider text-nike-gray-600 dark:text-nike-gray-400;
+  }
+
+  .nike-progress-bar {
+    @apply h-2 bg-nike-gray-100 dark:bg-nike-gray-700 rounded-full overflow-hidden;
+  }
+
+  .nike-progress-bar-fill {
+    @apply h-full bg-nike-red transition-all duration-300;
+  }
+
+  .nike-section-title {
+    @apply text-xl font-black uppercase tracking-wider text-nike-black dark:text-nike-white mb-6;
+  }
+
+  .nike-card-title {
+    @apply text-lg font-bold uppercase tracking-tight text-nike-black dark:text-nike-white;
+  }
+
+  .nike-card-subtitle {
+    @apply text-sm font-bold uppercase tracking-wider text-nike-gray-600 dark:text-nike-gray-400;
+  }
+
+  .nike-text-highlight {
+    @apply text-nike-red font-bold;
+  }
+
+  .nike-divider {
+    @apply border-t border-nike-gray-200 dark:border-nike-gray-700 my-8;
+  }
+
+  .nike-grid {
+    @apply grid gap-6 sm:grid-cols-2 lg:grid-cols-3;
+  }
+
+  .nike-flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  .nike-flex-between {
+    @apply flex items-center justify-between;
+  }
+
+  /* Input styles for dark mode */
+  input[type="text"], 
+  input[type="email"], 
+  input[type="password"], 
+  input[type="number"] {
+    @apply bg-white dark:bg-nike-gray-800 text-nike-black dark:text-nike-white border-nike-gray-300 dark:border-nike-gray-600 focus:border-nike-red focus:ring-nike-red;
+  }
+
+  /* Placeholder text */
+  input::placeholder {
+    @apply text-nike-gray-500 dark:text-nike-gray-400;
+  }
+}
